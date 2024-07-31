@@ -17,27 +17,54 @@
 # потребуется другая кодировка - utf-8.
 
 def custom_write(file_name, strings):
+    file = open(file_name, 'w', encoding='utf-8')
     strings_positions = dict()
-    file = open('test.txt', 'w', encoding='utf-8')
-    num = 0
 
-    for string in strings:
-        num += 1
-        strings_positions[(num, file.tell())] = string
-        file.write(f'{string} + \n')
-
-    for keys, values in enumerate(strings_positions.items(), 1):
-        print(f'{keys} {values}')
-        file.close()
+    for key, value in enumerate(strings, 1):
+        keys = (key, file.tell())
+        strings_positions[keys] = value
+        file.write(f'{value} \n')
+    file.close()
+    return strings_positions
 
 
-info = [
-    'Text for tell.',
-    'Используйте кодировку utf-8.',
-    'Because there are 2 languages!',
-    'Спасибо!'
-]
+if __name__ == '__main__':
 
-result = custom_write('test.txt', info)
-for elem in result.items():
-    print(elem)
+    info = [
+        'Text for tell.',
+        'Используйте кодировку utf-8.',
+        'Because there are 2 languages!',
+        'Спасибо!'
+    ]
+    result = custom_write('test.txt', info)
+    for elem in result.items():
+        print(elem)
+
+
+# def custom_write(file_name, strings):
+#     file = open(file_name, 'w', encoding='utf-8')
+#     strings_positions = {}
+#
+#     for string in strings:
+#         file.write(string + '\n')
+#         strings_positions[len(strings_positions) + 1, file.tell()] = string
+#     file.close()
+#     return strings_positions
+#
+# if __name__ == '__main__':
+#
+#     info = [
+#         'Text for tell.',
+#         'Используйте кодировку utf-8.',
+#         'Because there are 2 languages!',
+#         'Спасибо!'
+#         ]
+#     result = custom_write('test.txt', info)
+#     for elem in result.items():
+#         print(elem)
+
+# Вывод на консоль:
+# ((1, 0), 'Text for tell.')
+# ((2, 16), 'Используйте кодировку utf-8.')
+# ((3, 66), 'Because there are 2 languages!')
+# ((4, 98), 'Спасибо!')
