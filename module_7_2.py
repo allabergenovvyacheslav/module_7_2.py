@@ -23,7 +23,7 @@ def custom_write(file_name, strings):
     for key, value in enumerate(strings, 1):
         keys = (key, file.tell())
         strings_positions[keys] = value
-        file.write(f'{value} \n')
+        file.write(f'{value}\n')
     file.close()
     return strings_positions
 
